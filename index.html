@@ -3,143 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Website</title>
+    <title>Student Landing Page - Bento Grid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- General Setup --- */
+        /* 4. Clean, Scientific, and Modern Color Palette */
+        :root {
+            --color-white: #ffffff;
+            --color-soft-grey: #f4f4f9;
+            --color-dark-grey: #333333;
+            --color-border: #e0e0e6;
+            /* Theme Update: Deep Ocean Blue (#005f9c) */
+            --color-accent: #005f9c; 
+        }
+
+        /* Base Styles */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--color-soft-grey);
+            color: var(--color-dark-grey);
             margin: 0;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
         }
 
-        h1 { margin-bottom: 10px; }
-        p { line-height: 1.6; }
-
-        /* --- 1. Socials Section --- */
-        .socials {
-            margin-bottom: 40px;
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-top: 0;
         }
 
-        .social-btn {
-            display: inline-block;
-            text-decoration: none;
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            margin: 0 5px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .social-btn:hover {
-            background-color: #555;
-        }
-
-        /* --- Card Layout --- */
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            max-width: 900px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        /* --- Card Styling --- */
-        .card {
-            background: white;
+        /* --- Bento Grid Layout (Desktop) --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+            grid-auto-rows: minmax(150px, auto); /* Minimum row height */
+            gap: 20px;
+        }
+
+        /* Card Base Styling */
+        .bento-card {
+            background-color: var(--color-white);
             border-radius: 12px;
             padding: 25px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--color-border);
             
-            /* --- 3. THEME TWEAK: Smooth Transition --- */
+            /* 3. THEME TWEAK: Subtle hover effect setup */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        /* --- 3. THEME TWEAK: Hover Scale Effect --- */
-        .card:hover {
-            transform: scale(1.05); /* Scales up the card */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        
+        .bento-card:hover {
+            /* 3. THEME TWEAK: Hover (Zoom/Lift) effect */
+            transform: scale(1.02); /* Using scale for a clearer zoom */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .card h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-
-        .card-tag {
-            font-size: 0.85em;
-            color: #777;
+        .card-title {
+            color: var(--color-accent);
+            font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
-            display: block;
+            margin-bottom: 15px;
+            font-weight: 400;
         }
+
+        /* --- Card Sizing and Positioning --- */
+        
+        /* Card 1 (Profile): Large box (2x2) */
+        .card-profile {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .card-profile .profile-name {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .card-profile .tagline {
+            font-style: italic;
+            color: var(--color-dark-grey);
+            margin-bottom: 10px;
+        }
+        
+        .card-profile .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* Card 3 & 4 (Medium boxes): 2x1 */
+        .card-tech-stack,
+        .card-case-study {
+            grid-column: span 2;
+            min-height: 200px;
+        }
+        
+        .card-tech-stack ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-tech-stack ul li {
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .card-tech-stack ul li::before {
+            content: '•';
+            color: var(--color-accent);
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+        }
+
+
+        /* Card 6 (Playlist): Wide box (4x1) at the bottom */
+        .card-playlist {
+            grid-column: span 4;
+            min-height: 100px;
+            text-align: center;
+            background-color: var(--color-dark-grey);
+            color: var(--color-soft-grey);
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr; /* Single column on mobile */
+                grid-auto-rows: auto;
+            }
+            
+            /* All cards stack, taking full width */
+            .bento-card {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+                min-height: auto; /* Allow height to adjust */
+            }
+        }
+        
     </style>
 </head>
 <body>
 
-    <h1>Welcome to My Profile</h1>
-    
-    <div class="socials">
-        <a href="#" target="_blank" class="social-btn">LinkedIn</a>
-        <a href="https://s80210.github.io/" target="_blank" class="social-btn">GitHub</a>
-        <a href="#" target="_blank" class="social-btn">Twitter</a>
-    </div>
-
     <div class="container">
-        <div class="card">
-            <span class="card-tag">Hobby</span>
-            <h3>Singing & Reading</h3>
-            <p>
-                In my free time, I enjoy exploring the reading and singing alone in my room. 
-                Singing allows me to disconnect and appreciate nature.
-            </p>
+        <div class="bento-grid">
+            
+            <div class="bento-card card-profile">
+                <div class="card-title">Student Profile</div>
+                <h1 class="profile-name">Siti Nur Khairunnisa Binti Kamal Fatimi</h1>
+                <p class="tagline">'From Soil to Harvest, The Science Of Crops.'</p>
+                <p><strong>Program:</strong> Crop Science</p>
+                <p><strong>Year:</strong> Year 1</p>
+                <hr style="border-top: 1px solid var(--color-border); margin: 15px 0;">
+                <div class="social-links">
+                    <a href="#" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/S80210" target="_blank">GitHub</a>
+                    <a href="#" target="_blank">UMT Portal</a>
+                </div>
+            </div>
 
-	<iframe style="border-radius:12px"
+            <div class="bento-card card-location">
+                <div class="card-title">Location & Time</div>
+                <h2>UMT, Kuala Nerus</h2>
+                <p>Current Time: 12:10 PM (GMT+8)</p>
+            </div>
+
+            <div class="bento-card card-hobby">
+                <div class="card-title">Campus Life</div>
+                <h3>Personal Activity</h3>
+                <p>Evening walks at Pantai UMT.</p>
+            </div>
+            
+            <div class="bento-card card-reflection">
+                <div class="card-title">Food Security Reflection</div>
+                <h3>Why Different Type of Soils Matters in Malaysia</h3>
+                <p>Sustainable food security is crucial for our future. By optimizing local processing methods, we can reduce waste and improve nutrition.</p>
+            </div>
+
+            <div class="bento-card card-tech-stack">
+                <div class="card-title">Core Subjects</div>
+                <h3>Semester Stack</h3>
+                <ul>
+                    <li>Crop Sciences</li>
+                    <li>Microbiology Plantation</li>
+                    <li>Philosophy and Current Issues</li>
+                    <li>Fundamentals Of Entreprenuership</li>
+                </ul>
+            </div>
+
+            <div class="bento-card card-case-study">
+                <div class="card-title">Research & Projects</div>
+                <h3>Case Study: Fungal Disease Outbreak In Tomato Cultivation</h3>
+                <p><strong>Description:</strong> Analyzing Fungal Disease in Tomato.</p>
+                <p>Current Focus: Mitigation strategies.</p>
+            </div>
+
+            <div class="bento-card card-playlist">
+                <div class="card-title" style="color: var(--color-accent);">Study Playlist</div>
+                <p>Focus Music Placeholder: Instrumental study tracks to maximize concentration.</p>
+            </div>
+<iframe style="border-radius:12px"
 src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?ut
 m_source=generator&theme=0" width="100%" height="152" frameBorder="0"
 allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media;
-fullscreen; picture-in-picture" loading="lazy"></iframe>
-
-        </div>
-
-        <div class="card">
-            <span class="card-tag">Reflection</span>
-            <h3>Why Different Type of Soils Matters in Malaysia</h3>
-            <p>
-                Sustainable food security is crucial for our future. By optimizing
-                local processing methods, we can reduce waste and improve nutrition.
-            </p>
+fullscreen; picture-in-picture" loading="lazy"></iframe> 
         </div>
     </div>
 
 </body>
 </html>
-
-.profile-card {
-    /* Set the image file path */
-    background-image: url('bg.jpg');
-
-    /* 1. Control how the image covers the area */
-    background-size: cover; 
-
-    /* 2. Prevent the image from repeating if it's small */
-    background-repeat: no-repeat; 
-
-    /* 3. Center the image within the card */
-    background-position: center center; 
-
-    /* Optional: Ensure text is readable over the image */
-    color: white; /* Example: change text color */
-    
-    /* Existing card styles (width, height, padding, etc.) */
-    /* width: 300px; */
-    /* padding: 20px; */
-    /* border-radius: 10px; */
-}
